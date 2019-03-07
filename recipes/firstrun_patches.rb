@@ -20,7 +20,8 @@ case node['os']
 when 'linux'
   # Action is nothing so that normally no action is taken; :run needs to be specifically invoked by lockfile resource
   execute 'linux-upgrade-once' do
-    command "yum -y upgrade --nogpgcheck #{node['autopatch_ii']['update_command_options']} #{node['autopatch_ii']['updates_to_skip'].each { |skip| "-x #{skip}" } unless node['autopatch_ii']['updates_to_skip'].empty?}"
+#    command "yum -y upgrade --nogpgcheck #{node['autopatch_ii']['update_command_options']} #{node['autopatch_ii']['updates_to_skip'].each { |skip| "-x #{skip}" } unless node['autopatch_ii']['updates_to_skip'].empty?}"
+    command "apt-get -y upgrade
     action :nothing
     notifies :request_reboot, 'reboot[firstrun_patches]', :delayed
   end
